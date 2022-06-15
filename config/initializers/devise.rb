@@ -14,8 +14,10 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'f7411156e74f7cd4a13cac4ca9ff46dc3c95d0d25ffa56845d70767bc6eaf46193512b053b750bbe435dd97960fc15184ce27338093fdb155d09a02b1816bdb8'
-
+  # config.secret_key = '5cf4cc9596de01204b6a373e76b7420766bd81a545aa22872a3bf4ad177c25617ecd0ce533990d4dc79b7aa66724567fe9c642e1c1b1598c7573aa187854e024'
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
+  end
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -126,7 +128,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '4ef64fd37bed41df60e3908cf5ce6fabadfde955db0ef80cfbb5a6ee65d78f5df991d1853b331d186518a9b42c3e67c81afde5af5d404fdc2e3be6e32c245bb2'
+  # config.pepper = '34592819f3409fcddd0b610b5e2bef0e15523705d2ab4b52bbb30f1de31cc5e30e6f3d0a0bb22fc41e5de4396739fa96fd1283e8bf27ab86d2c0775232ac9327'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -253,7 +255,7 @@ Devise.setup do |config|
   # Set this configuration to false if you want /users/sign_out to sign out
   # only the current scope. By default, Devise signs out all scopes.
   # config.sign_out_all_scopes = true
-
+  config.navigational_formats = []
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
   # :html, should redirect to the sign in page when the user does not have
