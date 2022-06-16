@@ -2,14 +2,14 @@
 
 one:
   username: MyString
-  user_fullname: MyString
-  user_city: MyString
   user_address: MyString
   user_contact_number: 1
+  user_city: MyString
+  user: one
 
 two:
   username: MyString
-  user_fullname: MyString
-  user_city: MyString
   user_address: MyString
   user_contact_number: 1
+  user_city: MyString
+  user: two
