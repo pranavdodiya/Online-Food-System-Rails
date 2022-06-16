@@ -2,6 +2,8 @@ module Api
     module V1
       class ItemsController < ApplicationController
 
+        before_action :set_item, except:[:index,:create] 
+
         #GET /users
         def index
             @items=Item.all

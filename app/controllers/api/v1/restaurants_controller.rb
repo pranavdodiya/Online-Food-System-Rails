@@ -3,7 +3,7 @@ module Api
       class RestaurantsController < ApplicationController
         
 
-        #before_action :authenticate_user!
+        before_action :set_restaurant, except:[:index, :create] 
         
 
         #GET /users
@@ -38,6 +38,8 @@ module Api
 
         #DELETE /users/{username}
         def destroy
+            p "hakj"
+            p @restaurant
             @restaurant.destroy
         end
 
