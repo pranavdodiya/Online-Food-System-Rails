@@ -1,6 +1,10 @@
 module Api
     module V1
       class RestaurantsController < ApplicationController
+        
+
+        #before_action :authenticate_user!
+        
 
         #GET /users
         def index
