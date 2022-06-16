@@ -4,46 +4,46 @@ module Api
 
         #GET /users
         def index
-            @carts=Cart.all
-            render json: @carts , status: :ok
+            @cartitems=Cartitem.all
+            render json: @cartitems , status: :ok
         end
 
         #GET /users/{username}
         def show
-            render json: @cart, status: :ok
+            render json: @cartitem, status: :ok
         end
 
         #POST /users
         def create
-            @cart = Cart.new(cart_params)
-            if @cart.save!
-                render json: @cart, status: :created
+            @cartitem = Cartitem.new(cartitem_params)
+            if @cartitem.save!
+                render json: @cartitem, status: :created
             else 
-                render json: { errors: @cart.errors.full_messages },
+                render json: { errors: @cartitem.errors.full_messages },
                     status: :unprocessable_entity
             end
         end
 
         #PUT /users/{username}
         def update
-            unless @cart.update(item_params)
-                render json: { errors: @cart.errors.full_messages },
+            unless @cartitem.update(cartitem_params)
+                render json: { errors: @cartitem.errors.full_messages },
                     status: :unprocessable_entity
             end
         end
 
         #DELETE /users/{username}
         def destroy
-            @cart.destroy
+            @cartitem.destroy
         end
         private
 
-            def cart_params
+            def cartitem_params
                 params.permit(:user_id)
             end
 
-            def set_cart
-                @cart= Cart.find(params[:id])
+            def set_cartitem
+                @cartitem= Cartitem.find(params[:id])
             end
         
   
