@@ -70,10 +70,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_071128) do
     t.string "item_category"
     t.string "item_status"
     t.text "item_description"
-    t.bigint "restaurants_id", null: false
+    t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["restaurants_id"], name: "index_items_on_restaurants_id"
+    t.index ["restaurant_id"], name: "index_items_on_restaurant_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -126,6 +126,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_071128) do
   add_foreign_key "cartitems", "carts"
   add_foreign_key "cartitems", "items"
   add_foreign_key "carts", "users"
-  add_foreign_key "items", "restaurants", column: "restaurants_id"
+  add_foreign_key "items", "restaurants"
   add_foreign_key "userdetails", "users"
 end
