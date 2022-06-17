@@ -37,11 +37,7 @@ module Api
         private
 
             def item_params
-<<<<<<< Updated upstream
                 params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
-=======
-                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurants_id, foodimages: [])
->>>>>>> Stashed changes
             end
 
             def set_item
