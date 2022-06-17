@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :carts
   has_many :cartitems
   has_many_attached :foodimages
-
+  
 
 end
 #belongs_to :user, class_name: "User", foreign_key: "users_id"

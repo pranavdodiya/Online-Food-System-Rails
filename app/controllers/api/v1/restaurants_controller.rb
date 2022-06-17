@@ -6,21 +6,21 @@ module Api
         before_action :set_restaurant, except:[:index, :create] 
         
 
-        #GET /users
+      
         def index
             @restaurants=Restaurant.all
             render json: @restaurants , status: :ok
         end
 
-        #GET /users/{username}
+    
         def show
             render json: @restaurant, status: :ok
         end
 
-        #POST /users
+       
         def create
             @restaurant = Restaurant.new(restaurant_params)
-            if @restaurant.save!
+            if @user.save!
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },
@@ -28,7 +28,6 @@ module Api
             end
         end
 
-        #PUT /users/{username}
         def update
             unless @restaurant.update(restaurant_params)
                 render json: { errors: @restaurant.errors.full_messages },
@@ -36,7 +35,7 @@ module Api
             end
         end
 
-        #DELETE /users/{username}
+      
         def destroy
             p "hakj"
             p @restaurant

@@ -18,4 +18,6 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtDenylist
 
     
+
+
 end
