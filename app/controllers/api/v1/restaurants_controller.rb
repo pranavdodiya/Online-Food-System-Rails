@@ -3,7 +3,7 @@ module Api
       class RestaurantsController < ApplicationController
         
 
-        before_action :set_restaurant, except:[:index, :create] 
+       # before_action :set_restaurant, except:[:index,:create] 
         
 
         #GET /users
@@ -14,11 +14,13 @@ module Api
 
         #GET /users/{username}
         def show
+            @restaurant = Restaurant.find(params[:id])
             render json: @restaurant, status: :ok
         end
 
         #POST /users
         def create
+            
             @restaurant = Restaurant.new(restaurant_params)
             if @restaurant.save!
                 render json: @restaurant, status: :created
@@ -30,16 +32,20 @@ module Api
 
         #PUT /users/{username}
         def update
-            unless @restaurant.update(restaurant_params)
-                render json: { errors: @restaurant.errors.full_messages },
-                    status: :unprocessable_entity
+
+            @restaurant = Restaurant.find(params[:id])
+
+            if @restaurant.update_attributes(restaurant_params)
+            render json: {status: 'SUCCESS', message: 'restaurant is updated', data:@restaurant}, status: :ok
+            else
+            render json: {status: 'Error', message: 'restaurant is not updated', data:@restaurant.errors}, status: :unprocessable_entity
             end
+
         end
 
         #DELETE /users/{username}
         def destroy
-            p "hakj"
-            p @restaurant
+            @restaurant = Restaurant.find(params[:id])
             @restaurant.destroy
         end
 
@@ -49,9 +55,9 @@ module Api
                 params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image)
             end
 
-            def set_restaurant
-                @restaurant = Restaurant.find(params[:id])
-            end
+            # def set_restaurant
+            #     @restaurant = Restaurant.find(params[:id])
+            # end
         
   
       end

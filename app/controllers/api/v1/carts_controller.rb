@@ -2,7 +2,7 @@ module Api
     module V1
       class CartsController < ApplicationController
 
-        before_action :authenticate_user!
+       before_action :authenticate_user!
         
         #GET /users
         def index
@@ -28,11 +28,13 @@ module Api
 
         #PUT /users/{username}
         def update
-            unless @cart.update(cart_params)
+            @cart=Cart.find(params[:cart_id])
+            unless @cart.update(cart_obj: params[:cart_obj])
                 render json: { errors: @cart.errors.full_messages },
                     status: :unprocessable_entity
             end
-        end
+            render json: @cart ,status: :ok
+        end 
 
         #DELETE /users/{username}
         def destroy
@@ -41,7 +43,7 @@ module Api
         private
 
             def cart_params
-                params.permit(:user_id)
+                params.permit(:user_id,:cart_obj)
             end
 
             def set_cart
