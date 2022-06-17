@@ -3,7 +3,7 @@ module Api
       class RestaurantsController < ApplicationController
         
 
-        #before_action :authenticate_user!
+        before_action :set_restaurant, except:[:index, :create] 
         
 
         #GET /users
@@ -19,8 +19,8 @@ module Api
 
         #POST /users
         def create
-            @restaurant = Restaurant.new(user_params)
-            if @user.save!
+            @restaurant = Restaurant.new(restaurant_params)
+            if @restaurant.save!
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },
@@ -38,13 +38,15 @@ module Api
 
         #DELETE /users/{username}
         def destroy
+            p "hakj"
+            p @restaurant
             @restaurant.destroy
         end
 
         private
 
             def restaurant_params
-                params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city)
+                params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image)
             end
 
             def set_restaurant

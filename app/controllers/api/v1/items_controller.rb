@@ -2,6 +2,8 @@ module Api
     module V1
       class ItemsController < ApplicationController
 
+        before_action :set_item, except:[:index,:create] 
+
         #GET /users
         def index
             @items=Item.all
@@ -15,7 +17,7 @@ module Api
 
         #POST /users
         def create
-            @item = Restaurant.new(item_params)
+            @item = Item.new(item_params)
             if @item.save!
                 render json: @item, status: :created
             else 
@@ -39,7 +41,7 @@ module Api
         private
 
             def item_params
-                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurants_id)
+                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
             end
 
             def set_item
