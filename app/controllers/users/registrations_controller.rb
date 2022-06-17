@@ -7,9 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     private
 
 
-        
-
-
         def respond_with(resource, _opts = {})
             register_success && return if resource.persisted?
 
@@ -19,6 +16,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         def register_success
+            p current_user["1"]["user"].id
+            @cart=Cart.create!(user_id: )
             render json: {
                 message: 'Signed up sucessfully.',
                 user: current_user
