@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-
+  after_create_commit :create_cart_detail
   has_one :cart
   has_one :user_detail
 
@@ -16,6 +16,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
+
+
+  private
+
+    def create_cart_detail
+      curent_user=User.find_by(email: self.email)
+      p curent_user.id
+      x=Cart.new(user_id: curent_user.id)
+      p x.save(:validate => false)
+    end
 
     
 

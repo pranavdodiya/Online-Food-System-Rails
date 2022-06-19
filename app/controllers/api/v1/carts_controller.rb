@@ -28,25 +28,29 @@ module Api
 
         #PUT /users/{username}
         def update
-            unless @cart.update(cart_params)
-                render json: { errors: @cart.errors.full_messages },
-                    status: :unprocessable_entity
+            @cart = Cart.find(params[:cart_id])
+
+            if @cart.update(cart_obj: params[:cart_obj])
+            render json: {status: 'SUCCESS', message: 'item is updated', data:@cart}, status: :ok
+            else
+            render json: {status: 'Error', message: 'item  is not updated', data:@cart.errors}, status: :unprocessable_entity
             end
         end
 
         #DELETE /users/{username}
         def destroy
+            @cart= Cart.find(params[:id])
             @cart.destroy
         end
         private
 
             def cart_params
-                params.permit(:user_id)
+                params.permit(:user_id,)
             end
 
-            def set_cart
-                @cart= Cart.find(params[:id])
-            end
+            # def set_cart
+            #     @cart= Cart.find(params[:id])
+            # end
         
   
       end

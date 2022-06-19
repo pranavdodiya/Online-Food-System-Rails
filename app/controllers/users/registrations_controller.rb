@@ -1,13 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     respond_to :json
 
-
-    
-
     private
-
-
-        
 
 
         def respond_with(resource, _opts = {})
@@ -19,6 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         def register_success
+            #UserMailer.welcome_email(@user).deliver_now
+            UserMailer.with(user: @user).welcome_email.deliver_later
             render json: {
                 message: 'Signed up sucessfully.',
                 user: current_user
