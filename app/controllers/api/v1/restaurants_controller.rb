@@ -5,14 +5,14 @@ module Api
 
         #before_action :set_restaurant, except:[:index, :create] 
         
-        def add_role
-            @user = User.find(params[:id])
-            @restaurant=Restaurant.find_by(user_id: params[:id])
-            @restaurant.update_attribute(:status, true)
-            render json: @user
+        # def add_role
+        #     @user = User.find(params[:id])
+        #     @restaurant=Restaurant.find_by(user_id: params[:id])
+        #     @restaurant.update_attribute(:status, true)
+        #     render json: @user
             
             
-        end
+        # end
       
         def index
             @restaurants=Restaurant.all

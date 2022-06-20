@@ -56,4 +56,7 @@ gem "devise-jwt", "~> 0.9.0"
 gem "rack-cors", "~> 1.1"
 gem "httparty"
 
-gem "rolify"
+
+gem 'active_model_serializers'
+gem 'rails_admin', '~> 3.0'
+gem "sassc-rails"

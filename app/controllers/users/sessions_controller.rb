@@ -1,6 +1,26 @@
 class Users::SessionsController < Devise::SessionsController
     respond_to :json
 
+    def res_owner_show
+        
+        if current_user.role = "Restaurant Owner"
+            @res = Restaurant.find(current_user.id)
+            render json: @res, status: :ok
+        else
+            render json: {
+                message: "Not registered"
+            }, status: :ok
+        end
+    end
+
+    def admin
+        if current_user.id == 1
+            @res = Restaurant.all
+            render json: @res, status: :ok
+        
+        end
+    end
+    
     private 
 
     def respond_with(_resource, _opts = {})

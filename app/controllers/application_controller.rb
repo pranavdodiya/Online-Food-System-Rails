@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+    include ::ActionController::Serialization
     before_action :configure_permitted_parameters, if: :devise_controller?
     
     protected

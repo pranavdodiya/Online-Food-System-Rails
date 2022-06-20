@@ -1,10 +1,9 @@
 class User < ApplicationRecord
-  rolify
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   after_create_commit :create_cart_detail
   has_one :cart
-  has_one :user_detail
   #after_create :assign_default_role
 
   validates :email, presence: true, uniqueness: true
