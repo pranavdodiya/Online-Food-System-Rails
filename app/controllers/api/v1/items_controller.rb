@@ -9,6 +9,7 @@ module Api
         end
 
         def show
+            @item = Item.find(params[:id])
             render json: @item, status: :ok
         end
 
@@ -24,14 +25,18 @@ module Api
         end
 
         def update
-            unless @item.update(item_params)
-                render json: { errors: @item.errors.full_messages },
-                    status: :unprocessable_entity
+            @item = Item.find(params[:id])
+
+            if @item.update(item_params)
+            render json: {status: 'SUCCESS', message: 'item is updated', data:@restaurant}, status: :ok
+            else
+            render json: {status: 'Error', message: 'item  is not updated', data:@restaurant.errors}, status: :unprocessable_entity
             end
         end
 
    
         def destroy
+            @item = Item.find(params[:id])
             @item.destroy
         end
         private
@@ -40,9 +45,9 @@ module Api
                 params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
             end
 
-            def set_item
-                @item= Item.find(params[:id])
-            end
+            # def set_item
+            #     @item= Item.find(params[:id])
+            # end
         
   
       end

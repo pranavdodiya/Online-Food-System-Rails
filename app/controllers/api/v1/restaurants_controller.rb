@@ -17,12 +17,12 @@ module Api
             @restaurant = Restaurant.find(params[:id])
             render json: @restaurant, status: :ok
         end
-
+        
        
         def create
-            
             @restaurant = Restaurant.new(restaurant_params)
-            if @user.save!
+            if @restaurant.save!
+                RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },
@@ -34,7 +34,7 @@ module Api
 
             @restaurant = Restaurant.find(params[:id])
 
-            if @restaurant.update_attributes(restaurant_params)
+            if @restaurant.update(restaurant_params)
             render json: {status: 'SUCCESS', message: 'restaurant is updated', data:@restaurant}, status: :ok
             else
             render json: {status: 'Error', message: 'restaurant is not updated', data:@restaurant.errors}, status: :unprocessable_entity
@@ -46,6 +46,9 @@ module Api
         def destroy
             @restaurant = Restaurant.find(params[:id])
             @restaurant.destroy
+            render json: {
+                message: 'deleted sucessfully.'
+            }
         end
 
         private

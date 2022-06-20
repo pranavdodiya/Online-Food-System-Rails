@@ -1,9 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     respond_to :json
 
-
-    
-
     private
 
 
@@ -16,8 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         def register_success
-            # p current_user["1"]["user"].id
-            # @cart=Cart.create!(user_id: )
+            #UserMailer.welcome_email(@user).deliver_now
+            UserMailer.with(user: @user).welcome_email.deliver_later
             render json: {
                 message: 'Signed up sucessfully.',
                 user: current_user

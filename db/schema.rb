@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_06_17_095432) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2022_06_19_163909) do
+>>>>>>> de7d5a902daf185fd957d37eb0fe2f3bbd70daf0
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +98,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_17_095432) do
     t.string "restaurant_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.boolean "status", default: false
+    t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
   create_table "userdetails", force: :cascade do |t|
@@ -114,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_17_095432) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+<<<<<<< HEAD
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -122,6 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_17_095432) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "username"
+=======
+>>>>>>> de7d5a902daf185fd957d37eb0fe2f3bbd70daf0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -136,5 +146,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_17_095432) do
   add_foreign_key "cartitems", "items"
   add_foreign_key "carts", "users"
   add_foreign_key "items", "restaurants"
+  add_foreign_key "restaurants", "users"
   add_foreign_key "userdetails", "users"
 end

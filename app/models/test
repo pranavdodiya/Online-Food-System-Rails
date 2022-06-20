@@ -1,0 +1,12 @@
+
+require 'json'
+
+arr= {"cartitem"=>
+     {"0"=>{"id"=>1, "name"=>"paaner", "price"=>20, "quantity"=>7, "totalPrice"=>140},
+      "1"=>{"id"=>2, "name"=>"vada pav", "price"=>20, "quantity"=>2, "totalPrice"=>40}},
+    "totalCartPrice"=>20,
+    "totalQuantity"=>9}
+    # arr=JSON.parse(arr)
+arr["cartitem"].each do |x| 
+    p x[1]
+end
