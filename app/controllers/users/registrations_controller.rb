@@ -16,8 +16,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         def register_success
-            p current_user["1"]["user"].id
-            @cart=Cart.create!(user_id: )
+            # p current_user["1"]["user"].id
+            # @cart=Cart.create!(user_id: )
             render json: {
                 message: 'Signed up sucessfully.',
                 user: current_user
@@ -29,11 +29,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
             render json: { message: 'Something went wrong.'}, status: :unprocessable_entity
         end
 
-    def register_failed 
-        render json: { message: 'Something went wrong.'}, status: :unprocessable_entity
-    end
+
     
     def user_params
-        params.permit(:email, :name, :contact_number, :password)
+        params.permit(:email, :name, :contact_number, :password, :username)
     end
 end
