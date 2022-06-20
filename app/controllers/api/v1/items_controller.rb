@@ -4,6 +4,7 @@ module Api
 
        
         def index
+            
             @items=Item.all
             render json: @items , status: :ok
         end
@@ -14,7 +15,9 @@ module Api
         end
 
        
-        def create
+        def create            
+
+            
             @item = Item.new(item_params)
             if @item.save!
                 render json: @item, status: :created

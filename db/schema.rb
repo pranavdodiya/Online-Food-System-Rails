@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_163909) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_163909) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.text "address"
+    t.integer "item_id"
+    t.boolean "status", default: false
+    t.integer "item_quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "order_obj"
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string "restaurant_name"
     t.string "restaurant_address"
@@ -117,10 +127,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_163909) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "contact_number"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
