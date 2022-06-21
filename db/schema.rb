@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
     t.index ["cart_id", "item_id"], name: "index_carts_items_on_cart_id_and_item_id"
   end
 
+  create_table "delivery_men", force: :cascade do |t|
+    t.string "delivaryman_name"
+    t.string "deliveryman_city"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "item_name"
     t.integer "item_price"
@@ -79,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
-    t.datetime "exp", null: false
+    t.datetime null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
