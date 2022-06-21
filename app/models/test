@@ -8,5 +8,6 @@ arr= {"cartitem"=>
     "totalQuantity"=>9}
     # arr=JSON.parse(arr)
 arr["cartitem"].each do |x| 
-    p x[1]
+    p x[1]["id"]
+break
 end

@@ -1,6 +1,15 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     respond_to :json
 
+    # def add_role
+    #     @user = User.find(params[:id])
+    #     @user.add_role :params[:add_role]
+    #     if @user.update(user_params)
+    #       render json: @user
+        
+    #     end
+    # end
+
     private
 
 

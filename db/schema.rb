@@ -85,6 +85,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_080424) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.text "address"
+    t.integer "item_id"
+    t.boolean "status", default: false
+    t.integer "item_quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "order_obj"
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string "restaurant_name"
     t.string "restaurant_address"
@@ -133,6 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_080424) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+<<<<<<< HEAD
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -140,11 +151,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_080424) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+=======
+>>>>>>> ffe245eb0bf6650ae94cd3b2386b95ef11e7b7d8
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "contact_number"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
