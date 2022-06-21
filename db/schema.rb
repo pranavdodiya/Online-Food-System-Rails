@@ -65,6 +65,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
     t.index ["cart_id", "item_id"], name: "index_carts_items_on_cart_id_and_item_id"
   end
 
+  create_table "delivery_men", force: :cascade do |t|
+    t.string "delivaryman_name"
+    t.string "deliveryman_city"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "item_name"
     t.integer "item_price"
@@ -109,6 +117,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.float "rating"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "reviewable_type", null: false
+    t.bigint "reviewable_id", null: false
+    t.bigint "restaurant_id"
+    t.bigint "item_id"
+    t.bigint "user_id"
+    t.index ["item_id"], name: "index_reviews_on_item_id"
+    t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "userdetails", force: :cascade do |t|
     t.string "username"
     t.string "user_address"
@@ -144,5 +168,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_093005) do
   add_foreign_key "carts", "users"
   add_foreign_key "items", "restaurants"
   add_foreign_key "restaurants", "users"
+  add_foreign_key "reviews", "items"
+  add_foreign_key "reviews", "restaurants"
+  add_foreign_key "reviews", "users"
   add_foreign_key "userdetails", "users"
 end
