@@ -4,8 +4,8 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :carts
   has_many :cartitems
   has_many_attached :foodimages
-  
-
+  has_many :reviews, :as => :reviewable 
+  belongs_to :order
 end
 #belongs_to :user, class_name: "User", foreign_key: "users_id"
 #has_many :user_cvs,foreign_key: "users_id",dependent: :destroy
