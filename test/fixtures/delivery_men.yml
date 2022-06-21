@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  delivaryman_name: MyString
+  deliveryman_city: MyString
+  status: false
+
+two:
+  delivaryman_name: MyString
+  deliveryman_city: MyString
+  status: false
