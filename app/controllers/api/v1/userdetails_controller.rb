@@ -2,18 +2,17 @@ module Api
     module V1
       class UserdetailsController < ApplicationController
 
-        #GET /users
         def index
             @userdetails=Userdetail.all
             render json: @userdetails , status: :ok
         end
 
-        #GET /users/{username}
+       
         def show
             render json: @userdetail, status: :ok
         end
 
-        #POST /users
+        
         def create
             @userdetail = Userdetail.new(user_params)
             if @userdetail.save!
@@ -24,7 +23,7 @@ module Api
             end
         end
 
-        #PUT /users/{username}
+       
         def update
             unless @user.update(userdetail_params)
                 render json: { errors: @userdetail.errors.full_messages },
@@ -32,7 +31,7 @@ module Api
             end
         end
 
-        #DELETE /users/{username}
+
         def destroy
             @userdetail.destroy
         end

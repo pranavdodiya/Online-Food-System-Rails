@@ -47,12 +47,6 @@ module Api
             def item_params
                 params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
             end
-
-            # def set_item
-            #     @item= Item.find(params[:id])
-            # end
-        
-  
       end
     end
   end

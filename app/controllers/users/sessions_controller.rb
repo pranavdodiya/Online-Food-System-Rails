@@ -14,13 +14,6 @@ class Users::SessionsController < Devise::SessionsController
         end
     end
 
-    # def admin
-    #     if current_user.id == 1
-    #         @res = Restaurant.all
-    #         render json: @res, status: :ok
-        
-    #     end
-    # end
     
     private 
 

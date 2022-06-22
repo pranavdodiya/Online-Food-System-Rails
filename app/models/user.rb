@@ -5,11 +5,12 @@ class User < ApplicationRecord
   after_create_commit :create_cart_detail
   has_one :cart
   has_many :orders
-  #after_create :assign_default_role
+  # has_one :deliveries
+  
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  # validates :username, presence: false, uniqueness: true
+  validates :username, presence: false, uniqueness: true
   validates :password,
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
@@ -30,10 +31,7 @@ class User < ApplicationRecord
     end
 
 
-    # def assign_default_role
-    #   add_role(:user) if roles.blank?
-    # end
-    
+  
 
 
 end
