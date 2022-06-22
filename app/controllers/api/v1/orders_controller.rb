@@ -13,14 +13,26 @@ module Api
                  
                     #if  User.find(params[:user_id]).role == "Custmore"
                     elsif params[:user_id]
-                        @orders=Order.where(user_id: params[:user_id])
-                    
-                    
-                    elsif params[:delivery_id]
-                        @orders=Order.where(delivery_id: params[:delivery_id])
+                        if User.find(params[:user_id]).role == "Custmore"
+                            @orders=Order.where(user_id: params[:user_id])
+                        else User.find(params[:user_id]).role == "Delivery Man"
+                            @a=Delivery.find_by(user_id: params[:user_id])
+                            @orders=Order.where(delivery_id: @a.id)
+                        end
                     else
                         @orders=Order.all
                     end
+
+
+                    # elsif params[:user_id]
+                    #     @orders=Order.where(user_id: params[:user_id])
+                    
+                    
+                    # elsif params[:delivery_id]
+                    #     @orders=Order.where(delivery_id: params[:delivery_id])
+                    # else
+                        #@orders=Order.all
+                
                     
 
             render json: @orders , status: :ok

@@ -27,10 +27,10 @@ module Api
         
        
         def create
-
+            
             @restaurant = Restaurant.new(restaurant_params)
             if @restaurant.save!
-                RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
+                #RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },
@@ -60,7 +60,7 @@ module Api
         private
 
             def restaurant_params
-                params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image)
+                params.require(:restaurant_register_data).permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image, :restaurant_description, :user_id, :secure_url)
             end
 
             # def set_restaurant

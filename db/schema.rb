@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_21_113121) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_110759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_113121) do
     t.boolean "delivery_status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_deliveries_on_user_id"
+  end
+
+  create_table "examples", force: :cascade do |t|
+    t.string "name"
+    t.json "obj"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -83,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_113121) do
     t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "item_secure_url"
     t.index ["restaurant_id"], name: "index_items_on_restaurant_id"
   end
 
@@ -117,8 +127,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_113121) do
     t.string "restaurant_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.boolean "status", default: false
+    t.string "secure_url"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
@@ -171,6 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_113121) do
   add_foreign_key "cartitems", "carts"
   add_foreign_key "cartitems", "items"
   add_foreign_key "carts", "users"
+  add_foreign_key "deliveries", "users"
   add_foreign_key "items", "restaurants"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"

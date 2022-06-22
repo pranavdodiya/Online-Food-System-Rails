@@ -5,7 +5,15 @@ module Api
        
         def index
             
-            @items=Item.all
+            if params[:user_id]
+                if User.find(params[:user_id]).role == "Restaurant Owner"
+                    @items=Restaurant.find(params[:user_id]).items
+                end
+                # @b=Restaurant.find(@a.id).item_ids
+                # @orders=Order.where(:item_id=>@b)
+            else
+                @items=Item.all
+            end
             render json: @items , status: :ok
         end
 
@@ -45,7 +53,7 @@ module Api
         private
 
             def item_params
-                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
+                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , :item_secure_url)
             end
 
             # def set_item

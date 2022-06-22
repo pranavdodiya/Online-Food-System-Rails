@@ -3,16 +3,18 @@ class Users::SessionsController < Devise::SessionsController
 
     def res_owner_show
         
-
-        @res = Restaurant.find_by(user_id: current_user.id)
-        if current_user.role = "Restaurant Owner" && @res
-            render json: @res, status: :ok
-        else
-            render json: {
-                message: "Not registered"
-            }, status: :ok
-        end
+            @res = Restaurant.find_by(user_id: current_user.id)
+            
+            if current_user.role == "Restaurant Owner" && @res
+                render json: @res, status: :ok
+            else
+                render json: {
+                    message: "Not registered"
+                }, status: :ok
+            end
+    
     end
+
 
     # def admin
     #     if current_user.id == 1

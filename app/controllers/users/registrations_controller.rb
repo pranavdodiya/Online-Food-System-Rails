@@ -24,9 +24,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         def register_success
             #UserMailer.welcome_email(@user).deliver_now
             UserMailer.with(user: @user).welcome_email.deliver_later
+            # user=User.find_by(email: @user.email)
+            # if user.role == "Custmore"
+            #     p user.id
+            #     x=Cart.new(user_id: user.id)
+            #     p x.save(:validate => false)
+            # end
             render json: {
-                message: 'Signed up sucessfully.',
-                user: current_user
+                message: 'Signed up sucessfully.'
+                #user: current_user
                 
             }, status: :ok
         end
