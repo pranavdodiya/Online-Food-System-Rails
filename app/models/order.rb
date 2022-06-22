@@ -3,6 +3,11 @@ class Order < ApplicationRecord
     before_create :set_delivery_id
     belongs_to :user
 
+
+    validates :address, presence: true
+    validates :item_quantity, presence: true
+
+
     private
 
     def set_delivery_id

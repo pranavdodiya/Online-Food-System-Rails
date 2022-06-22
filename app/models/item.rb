@@ -5,5 +5,12 @@ class Item < ApplicationRecord
   has_many_attached :foodimages
   has_many :reviews, :as => :reviewable 
   # belongs_to :order
+
+  validates :item_name, presence: true
+  validates :item_price, presence: true, numericality: true
+  validates :item_category, presence: true
+  validates :item_description, presence: true, length: {minimum:50, maximum:500}
+  validates :item_status, presence: true
+
 end
 

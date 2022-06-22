@@ -4,4 +4,12 @@ class Restaurant < ApplicationRecord
     has_many :reviews, :as => :reviewable
     # has_many :orders
    
+
+    validates :restaurant_name, presence: true
+    validates :restaurant_address, presence: true
+    validates :restaurant_contact_number, presence: true, length: { is:10 }
+    validates :restaurant_description, presence: true
+    validates :restaurant_city, presence: true 
+    validates :restaurant_email, presence:true, uniqueness: true
+    # validates :user_id, uniqueness: true
 end
