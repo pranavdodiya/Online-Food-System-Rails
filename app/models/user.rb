@@ -3,18 +3,22 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   after_create_commit :create_cart_detail
-  has_one :cart
-  #after_create :assign_default_role
+  has_one :cart, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  # has_one :deliveries
+  
 
-  validates :email, presence: true, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  # validates :username, presence: false, uniqueness: true
+  # validates :email, presence: true, uniqueness: true
+  # validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  # validates :username, presence: true, uniqueness: true
   validates :password,
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
+  # validates :name, presence: true, length: {minimum: 5}, uniqueness: {case_sensitive: false}
+  validates :contact_number,presence:true, length: { is: 10 },numericality: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,  
+         :recoverable, :rememberable, :validatable, :confirmable,
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
 
@@ -29,10 +33,7 @@ class User < ApplicationRecord
     end
 
 
-    # def assign_default_role
-    #   add_role(:user) if roles.blank?
-    # end
-    
+  
 
 
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
+              confirmations: 'users/confirmations'
   }
 
   
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
       resources :items
       resources :cartitems
       resources :carts
+      resources :reviews
+      resources :orders
       
     end
 
@@ -26,6 +29,7 @@ Rails.application.routes.draw do
     get "users/res_owner_show" => "users/sessions#res_owner_show"
     get "users/admin" => "users/sessions#admin"
   end
+
 
   #get "users/show_res_items", to: "users/sessions#show_res_items"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

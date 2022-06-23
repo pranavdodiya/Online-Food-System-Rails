@@ -3,16 +3,7 @@ module Api
       class RestaurantsController < ApplicationController
         
 
-       # before_action :set_restaurant, except:[:index,:create] 
-        
-        # def add_role
-        #     @user = User.find(params[:id])
-        #     @restaurant=Restaurant.find_by(user_id: params[:id])
-        #     @restaurant.update_attribute(:status, true)
-        #     render json: @user
-            
-            
-        # end
+      
       
         def index
             @restaurants=Restaurant.all
@@ -29,7 +20,7 @@ module Api
         def create
             @restaurant = Restaurant.new(restaurant_params)
             if @restaurant.save!
-                RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
+                # RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },
@@ -61,14 +52,8 @@ module Api
         private
 
             def restaurant_params
-                params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image)
-            end
-
-            # def set_restaurant
-            #     @restaurant = Restaurant.find(params[:id])
-            # end
-        
-  
+                params.permit(:restaurant_name, :restaurant_email, :restaurant_contact_number, :restaurant_address, :restaurant_city, :rest_image, :restaurant_description, :user_id, :secure_url)
+            end        
       end
     end
   end

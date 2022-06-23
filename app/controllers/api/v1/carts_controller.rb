@@ -4,18 +4,17 @@ module Api
 
        before_action :authenticate_user!
         
-        #GET /users
+        
         def index
             @carts=Cart.all
             render json: @carts , status: :ok
         end
 
-        #GET /users/{username}
+        
         def show
             render json: @cart, status: :ok
         end
 
-        #POST /users
         def create
             @cart = Cart.new(cart_params)
             if @cart.save!
@@ -26,7 +25,7 @@ module Api
             end
         end
 
-        #PUT /users/{username}
+      
         def update
             @cart = Cart.find(params[:cart_id])
 
@@ -38,7 +37,7 @@ module Api
             render json: @cart ,status: :ok
         end 
 
-        #DELETE /users/{username}
+       
         def destroy
             @cart= Cart.find(params[:id])
             @cart.destroy
@@ -49,9 +48,6 @@ module Api
                 params.permit(:user_id,)
             end
 
-            # def set_cart
-            #     @cart= Cart.find(params[:id])
-            # end
         
   
       end

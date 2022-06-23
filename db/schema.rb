@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_23_043230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,12 +65,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
     t.index ["cart_id", "item_id"], name: "index_carts_items_on_cart_id_and_item_id"
   end
 
-  create_table "delivery_men", force: :cascade do |t|
-    t.string "delivaryman_name"
+  create_table "deliveries", force: :cascade do |t|
+    t.string "deliveryman_name"
     t.string "deliveryman_city"
-    t.boolean "status", default: false
+    t.string "deliveryman_number"
+    t.boolean "delivery_status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_deliveries_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -96,11 +99,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
   create_table "orders", force: :cascade do |t|
     t.text "address"
     t.integer "item_id"
-    t.boolean "status", default: false
+    t.string "status", default: "false"
     t.integer "item_quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "order_obj"
+    t.bigint "user_id", null: false
+    t.bigint "delivery_id", null: false
+    t.index ["delivery_id"], name: "index_orders_on_delivery_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -112,8 +119,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
     t.string "restaurant_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.boolean "status", default: false
+    t.string "secure_url"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
@@ -164,6 +172,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
     t.string "name"
     t.string "contact_number"
     t.string "role"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -173,7 +188,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185538) do
   add_foreign_key "cartitems", "carts"
   add_foreign_key "cartitems", "items"
   add_foreign_key "carts", "users"
+  add_foreign_key "deliveries", "users"
   add_foreign_key "items", "restaurants"
+  add_foreign_key "orders", "deliveries"
+  add_foreign_key "orders", "users"
   add_foreign_key "restaurants", "users"
   add_foreign_key "reviews", "items"
   add_foreign_key "reviews", "restaurants"
