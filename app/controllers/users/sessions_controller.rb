@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
     def res_owner_show
         
-
+        
         @res = Restaurant.find_by(user_id: current_user.id)
         if current_user.role = "Restaurant Owner" && @res
             render json: @res, status: :ok
