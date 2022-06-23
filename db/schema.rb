@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_110759) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_23_062746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_110759) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "deliveryman_email"
     t.index ["user_id"], name: "index_deliveries_on_user_id"
   end
 
@@ -106,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_110759) do
 
   create_table "orders", force: :cascade do |t|
     t.text "address"
-    t.integer "item_id"
+    t.integer "restaurant_id"
     t.string "status", default: "false"
     t.integer "item_quantity"
     t.datetime "created_at", null: false
@@ -114,6 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_110759) do
     t.json "order_obj"
     t.bigint "user_id", null: false
     t.bigint "delivery_id", null: false
+    t.integer "total_price"
     t.index ["delivery_id"], name: "index_orders_on_delivery_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

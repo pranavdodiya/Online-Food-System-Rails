@@ -30,7 +30,7 @@ module Api
             
             @restaurant = Restaurant.new(restaurant_params)
             if @restaurant.save!
-                #RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
+                RestaurantMailer.with(restaurant: @restaurant).new_restaurant_email.deliver_later
                 render json: @restaurant, status: :created
             else 
                 render json: { errors: @restaurant.errors.full_messages },

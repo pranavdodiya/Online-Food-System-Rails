@@ -22,7 +22,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         def register_success
-            #UserMailer.welcome_email(@user).deliver_now
             UserMailer.with(user: @user).welcome_email.deliver_later
             # user=User.find_by(email: @user.email)
             # if user.role == "Custmore"
