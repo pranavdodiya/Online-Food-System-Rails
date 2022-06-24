@@ -2,6 +2,7 @@ module Api
     module V1
       class ItemsController < ApplicationController
 
+            before_action :authenticate_user!, :except => [:index]
        
         def index
             
@@ -33,7 +34,7 @@ module Api
             if @item.update(item_params)
             render json: {status: 'SUCCESS', message: 'item is updated', data:@restaurant}, status: :ok
             else
-            render json: {status: 'Error', message: 'item  is not updated', data:@restaurant.errors}, status: :unprocessable_entity
+            render json: {status: 'ERROR', message: 'item  is not updated', data:@restaurant.errors}, status: :unprocessable_entity
             end
         end
 
@@ -45,7 +46,7 @@ module Api
         private
 
             def item_params
-                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , foodimages: [])
+                params.permit(:item_name, :item_price, :item_category, :item_status, :item_description, :restaurant_id , :item_secure_url)
             end
       end
     end

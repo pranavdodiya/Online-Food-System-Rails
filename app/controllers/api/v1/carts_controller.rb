@@ -6,8 +6,12 @@ module Api
         
         
         def index
-            @carts=Cart.all
-            render json: @carts , status: :ok
+           @cart = if params[:user_id]
+                Cart.find_by(user_id: params[:user_id])
+           else 
+                Cart.new
+           end
+            render json: @cart , status: :ok
         end
 
         
@@ -27,12 +31,12 @@ module Api
 
       
         def update
-            @cart = Cart.find(params[:cart_id])
+            @cart = Cart.find(params[:id])
 
             if @cart.update(cart_obj: params[:cart_obj])
             render json: {status: 'SUCCESS', message: 'item is updated', data:@cart}, status: :ok
             else
-            render json: {status: 'Error', message: 'item  is not updated', data:@cart.errors}, status: :unprocessable_entity
+            render json: {status: 'ERROR', message: 'item  is not updated', data:@cart.errors}, status: :unprocessable_entity
             end
             render json: @cart ,status: :ok
         end 
@@ -45,11 +49,8 @@ module Api
         private
 
             def cart_params
-                params.permit(:user_id,)
+                params.permit(cart_obj: {})
             end
-
-        
-  
       end
     end
   end
