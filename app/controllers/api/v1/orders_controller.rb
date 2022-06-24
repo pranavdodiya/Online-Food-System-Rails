@@ -4,6 +4,7 @@ module Api
         
         before_action :authenticate_user!
        
+       
         def index
            
             if params[:user_id]
@@ -28,14 +29,12 @@ module Api
 
        
         def create
-            
             @order = Order.new(order_params)
-    
             @order.restaurant_id = Item.find(params[:order][:restaurant_id]).restaurant_id
-    
             @restaurant= Restaurant.find(@order.restaurant_id)
             @order.restaurant_address=@restaurant.restaurant_address
             @order.restaurant_id = Item.find(params[:order][:restaurant_id]).restaurant.id
+            @order.delivery_id=Delivery.where(deliveryman_city: Restaurant.find(@order.restaurant_id).restaurant_city).sample.id
             
             if @order.save!
                 render json: {
@@ -68,6 +67,11 @@ module Api
             def order_params
                 params.require(:order).permit(:address, :restaurant_id, :item_quantity, :status, :delivery_id, :user_id, :total_price, :restaurant_address, order_obj: {})
             end
+            def set_delivery_id
+                params[:delivery_id]=Delivery.where(deliveryman_city: Restaurant.find(params[:restaurant_city]).restaurant_city).sample.id
+            end
+
       end
+
     end
   end
