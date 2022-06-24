@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
-    has_many :items
-    #before_create :set_delivery_id
+   
     belongs_to :user
 
 

@@ -36,7 +36,9 @@ module Api
             @order.restaurant_id = Item.find(params[:order][:restaurant_id]).restaurant_id
         
             if @order.save!
-                render json: @order, status: :created
+                render json: {
+                    message: 'Details successfully submitted', data:@order
+                }, status: :created
             else 
                 render json: { errors: @order.errors.full_messages },
                     status: :unprocessable_entity
@@ -62,7 +64,7 @@ module Api
         private
 
             def order_params
-                params.require(:order).permit(:address, :restaurant_id, :item_quantity, :status, :delivery_id, :user_id,:total_price, order_obj: {})
+                params.require(:order).permit(:address, :restaurant_id, :item_quantity, :status, :delivery_id, :user_id, :total_price, :restaurant_address, order_obj: {})
             end
   
       end

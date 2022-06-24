@@ -13,7 +13,6 @@ Rails.application.routes.draw do
       resources :users
       patch 'add_role', to: 'restaurants#add_role'
       resources :restaurants
-
       resources :items
       resources :cartitems
       resources :carts
@@ -22,9 +21,7 @@ Rails.application.routes.draw do
       resources :examples
       resources :deliveries
       
-    end
-
-    
+    end  
   end
 
   devise_scope :user do

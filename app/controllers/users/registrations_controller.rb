@@ -12,13 +12,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         end
 
-
         def register_success
             # UserMailer.with(user: @user).welcome_email.deliver_later    
             render json: {
                 message: 'Signed up sucessfully.'
                 #user: current_user
-                
             }, status: :ok
         end
 

@@ -5,16 +5,8 @@ module Api
             before_action :authenticate_user!, :except => [:index]
        
         def index
-            
-            if params[:user_id]
-                if User.find(params[:user_id]).role == "Restaurant Owner"
-                    @items=Restaurant.find(params[:user_id]).items
-                end
-                # @b=Restaurant.find(@a.id).item_ids
-                # @orders=Order.where(:item_id=>@b)
-            else
-                @items=Item.all
-            end
+
+            @items=Item.all
             render json: @items , status: :ok
         end
 
@@ -26,10 +18,9 @@ module Api
        
         def create            
 
-            
             @item = Item.new(item_params)
             if @item.save!
-                render json: @item, status: :created
+                render json: {status: 'SUCCESS', message: 'Details successfully submitted', data:@item}, status: :ok
             else 
                 render json: { errors: @item.errors.full_messages },
                     status: :unprocessable_entity
@@ -48,6 +39,7 @@ module Api
 
    
         def destroy
+
             @item = Item.find(params[:id])
             @item.destroy
         end
