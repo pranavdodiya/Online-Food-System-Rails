@@ -12,7 +12,7 @@ module Api
                 #customer can show progressbar for own order
                 if @user.role== "Customer"
                     @orders=Order.where(user_id: params[:user_id])
-                #restaurant owner show all owns order 
+                #restaurant owner see all his order 
                 elsif @user.role== "Restaurant Owner"
                     @e=Restaurant.find_by(user_id: params[:user_id])
                     @orders=Order.where(restaurant_id: @e.id)
