@@ -27,6 +27,7 @@ module Api
 
        
         def create
+            
             @order = Order.new(order_params)
 
             @order.restaurant_id = Item.find(params[:order][:restaurant_id]).restaurant_id
@@ -57,10 +58,11 @@ module Api
             @order = Order.find(params[:id])
             @order.destroy
         end
+
         private
 
             def order_params
-                params.permit(:address, :item_id, :item_quantity, :status, :delivery_id,:user_id)
+                params.require(:order).permit(:address, :restaurant_id, :item_quantity, :status, :delivery_id, :user_id,:total_price, order_obj: {})
             end
   
       end

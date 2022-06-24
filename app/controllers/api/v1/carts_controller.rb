@@ -2,15 +2,14 @@ module Api
     module V1
       class CartsController < ApplicationController
 
-       before_action :authenticate_user!
+    #    before_action :authenticate_user!
         
         
         def index
-           @cart = if params[:user_id]
-                Cart.find_by(user_id: params[:user_id])
-           else 
-                Cart.new
-           end
+            if params[:user_id]
+                @cart=Cart.find_by(user_id: params[:user_id])
+            end
+            # @carts=Cart.all
             render json: @cart , status: :ok
         end
 
@@ -20,6 +19,7 @@ module Api
         end
 
         def create
+            p params
             @cart = Cart.new(cart_params)
             if @cart.save!
                 render json: @cart, status: :created
@@ -34,7 +34,7 @@ module Api
             @cart = Cart.find(params[:id])
 
             if @cart.update(cart_obj: params[:cart_obj])
-            render json: {status: 'SUCCESS', message: 'item is updated', data:@cart}, status: :ok
+                render json: {status: 'SUCCESS', message: 'item is updated', data:@cart}, status: :ok
             else
             render json: {status: 'ERROR', message: 'item  is not updated', data:@cart.errors}, status: :unprocessable_entity
             end
@@ -49,7 +49,7 @@ module Api
         private
 
             def cart_params
-                params.permit(cart_obj: {})
+                params.permit(:cart_obj)
             end
       end
     end
