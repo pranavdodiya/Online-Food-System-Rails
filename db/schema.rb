@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_23_062746) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_23_184118) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,9 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_062746) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-<<<<<<< HEAD
-    t.index ["user_id"], name: "index_deliveries_on_user_id"
-=======
     t.string "deliveryman_email"
     t.index ["user_id"], name: "index_deliveries_on_user_id"
   end
@@ -85,7 +82,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_062746) do
     t.json "obj"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
->>>>>>> 4b364f23a9784b5c96acc77a63d22f0abca820f4
   end
 
   create_table "items", force: :cascade do |t|
@@ -186,6 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_23_062746) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "stripe_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
