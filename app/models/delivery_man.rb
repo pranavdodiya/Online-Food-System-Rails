@@ -1,2 +1,0 @@
-class DeliveryMan < ApplicationRecord
-end
