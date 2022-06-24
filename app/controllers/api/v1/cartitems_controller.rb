@@ -9,7 +9,7 @@ module Api
         end
 
         
-        def show
+        def showg
             render json: @cartitem, status: :ok
         end
 
