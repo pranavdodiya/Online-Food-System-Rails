@@ -6,15 +6,18 @@ module Api
        
        
         def index
-           
+           #show order for diffrent diffrent role
             if params[:user_id]
                 @user=User.find(params[:user_id])
+                #customer can show progressbar for own order
                 if @user.role== "Customer"
                     @orders=Order.where(user_id: params[:user_id])
+                #restaurant owner show all owns order 
                 elsif @user.role== "Restaurant Owner"
                     @e=Restaurant.find_by(user_id: params[:user_id])
                     @orders=Order.where(restaurant_id: @e.id)
                 elsif @user.role== "Delivery Men"
+                #deliverman show own order
                     x= Delivery.select(:id).where(user_id: params[:user_id])
                     @orders=Order.where(delivery_id: x)
                 end
@@ -29,6 +32,8 @@ module Api
 
        
         def create
+
+            # insert restaurant address and selecting deliveryman by same city 
             @order = Order.new(order_params)
             @order.restaurant_id = Item.find(params[:order][:restaurant_id]).restaurant_id
             @restaurant= Restaurant.find(@order.restaurant_id)
