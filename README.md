@@ -18,5 +18,7 @@ Things you may want to cover:
 * About this app: 
 The Online-Food-Order web application is intended to provide complete solutions for restaurant owners as well as customers. It will enable restaurant owners to list their food items on this application. Customers can browse through the application and can make multiple orders from any restaurant. There are three types of users: Customers, Deliverymen and Restaurant owners. Customers can add multiple items of diﬀerent categories in the cart and order. The restaurant owner can manage all food items, conﬁrm orders and assign deliverymen for each user. The admin module will enable an admin to approve and reject requests for new restaurants and maintain various lists of restaurants and deliverymen.
 
+Live link:https://online-food-order-app-c0453.web.app
+
 
 
